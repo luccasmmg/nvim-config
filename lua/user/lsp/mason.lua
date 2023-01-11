@@ -3,6 +3,8 @@ local servers = {
 	"sumneko_lua",
 	"pyright",
 	"jsonls",
+	"terraformls",
+	"tflint",
 }
 
 local settings = {
