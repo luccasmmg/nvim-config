@@ -60,8 +60,8 @@ nvim_tree.setup {
             { key = "v", cb = tree_cb "vsplit" },
             },
         },
-        number = false,
-        relativenumber = false,
+        number = true,
+        relativenumber = true,
     },
     renderer = {
         highlight_git = true,
