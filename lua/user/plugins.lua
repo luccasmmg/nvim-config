@@ -69,6 +69,10 @@ return packer.startup(function(use)
   use "williamboman/mason-lspconfig.nvim" -- simple to use language server installer 
   use "jose-elias-alvarez/null-ls.nvim" -- LSP diagnostics and code actions
 
+  -- Treesitter
+  use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+  use {"p00f/nvim-ts-rainbow"}
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
