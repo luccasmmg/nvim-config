@@ -48,6 +48,11 @@ nvim_tree.setup {
         ignore = true,
         timeout = 500,
     },
+    actions = {
+        open_file = {
+            quit_on_open = true,
+        }
+    },
     view = {
         width = 30,
         hide_root_folder = false,
