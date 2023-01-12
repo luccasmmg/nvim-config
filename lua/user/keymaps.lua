@@ -28,7 +28,7 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 -- Disable ctrl-M
 keymap("n", "<C-m>", "<Nop>", opts)
 
-keymap("n", "<leader>e", ":Lex 30<cr>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)

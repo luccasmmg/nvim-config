@@ -83,6 +83,9 @@ return packer.startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
+  -- Nvim-tree 
+  use "kyazdani42/nvim-tree.lua"
+
   -- Autopairs
   use "windwp/nvim-autopairs"
 
