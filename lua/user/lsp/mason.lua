@@ -5,6 +5,8 @@ local servers = {
 	"jsonls",
 	"terraformls",
 	"tflint",
+	"tsserver",
+	"tailwindcss",
 }
 
 local settings = {
