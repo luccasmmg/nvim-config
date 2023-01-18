@@ -89,6 +89,9 @@ return packer.startup(function(use)
   -- Autopairs
   use "windwp/nvim-autopairs"
 
+  -- Bufferline
+  use "akinsho/bufferline.nvim"
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
