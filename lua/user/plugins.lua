@@ -88,6 +88,9 @@ return packer.startup(function(use)
   -- Nvim-tree 
   use "kyazdani42/nvim-tree.lua"
 
+  --Copilot
+  use "github/copilot.vim"
+
   -- Autopairs
   use "windwp/nvim-autopairs"
 
