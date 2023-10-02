@@ -10,3 +10,5 @@ require "user.lualine"
 require "user.autopairs"
 require "user.nvim-tree"
 require "user.bufferline"
+
+require'nvim-tree'.setup {}
