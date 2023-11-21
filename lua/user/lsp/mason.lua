@@ -1,10 +1,10 @@
-
 local servers = {
 	"lua_ls",
 	"pyright",
 	"jsonls",
 	"terraformls",
 	"tflint",
+	"astro",
 	"tsserver",
 	"tailwindcss",
 }
