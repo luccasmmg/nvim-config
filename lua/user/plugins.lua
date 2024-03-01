@@ -90,6 +90,7 @@ return packer.startup(function(use)
 
   --Copilot
   use "zbirenbaum/copilot.lua"
+  use "CopilotC-Nvim/CopilotChat.nvim"
 
   -- Autopairs
   use "windwp/nvim-autopairs"

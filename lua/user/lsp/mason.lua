@@ -5,6 +5,7 @@ local servers = {
 	"terraformls",
 	"tflint",
 	"astro",
+	"gopls",
 	"tsserver",
 	"tailwindcss",
 }
