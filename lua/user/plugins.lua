@@ -49,6 +49,7 @@ return packer.startup(function(use)
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "challenger-deep-theme/vim"
   use 'Mofiqul/dracula.nvim'
+  use 'catppuccin/nvim'
   use "lunarvim/darkplus.nvim"
 
   -- cmp plugins

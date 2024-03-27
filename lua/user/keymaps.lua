@@ -74,3 +74,12 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<c-f>", "<cmd>Telescope live_grep<cr>", opts)
+
+-- Code related commands
+keymap("n", "<leader>ae", "<cmd>CopilotChatExplain<cr>", opts)
+keymap("n", "<leader>at", "<cmd>CopilotChatTests<cr>", opts)
+keymap("n", "<leader>ar", "<cmd>CopilotChatReview<cr>", opts)
+keymap("n", "<leader>aR", "<cmd>CopilotChatRefactor<cr>", opts)
+keymap("n", "<leader>an", "<cmd>CopilotChatBetterNamings<cr>", opts)
+keymap("x", "<leader>ccq", ":CopilotChatVisual", opts)
+keymap("x", "<leader>ax", ":CopilotChatInline<cr>", opts)

@@ -1,4 +1,5 @@
 local servers = {
+  "intelephense",
 	"lua_ls",
 	"pyright",
 	"jsonls",
