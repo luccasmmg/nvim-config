@@ -8,9 +8,8 @@ require "user.treesitter"
 require "user.telescope"
 require "user.lualine"
 require "user.autopairs"
-require "user.nvim-tree"
 require "user.bufferline"
 require "user.copilot"
-require "user.copilot-chat"
+require "CopilotChat".setup {}
 require "user.toggleterm"
-require'nvim-tree'.setup {}
+require 'nvim-tree'.setup {}

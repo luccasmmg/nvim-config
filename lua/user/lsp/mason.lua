@@ -1,5 +1,6 @@
 local servers = {
   "intelephense",
+  "rust_analyzer",
 	"lua_ls",
 	"pyright",
 	"jsonls",
@@ -8,6 +9,7 @@ local servers = {
 	"astro",
 	"gopls",
 	"tsserver",
+	"volar",
 	"tailwindcss",
 }
 
