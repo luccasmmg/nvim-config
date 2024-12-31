@@ -98,7 +98,7 @@ return packer.startup(function(use)
 		}, {
 			"nvim-lua/plenary.nvim",
 		}},
-    branch = "canary",
+    branch = "main",
 		config = function()
 			require("CopilotChat").setup({
 				show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
@@ -122,6 +122,9 @@ return packer.startup(function(use)
 
 	-- Toggle term
 	use("akinsho/toggleterm.nvim")
+
+	-- Go-import
+	use("mattn/vim-goimports")
 
 	-- Which key
 	use({

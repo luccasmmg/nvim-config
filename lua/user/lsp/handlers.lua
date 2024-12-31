@@ -83,8 +83,18 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 	lsp_keymaps(bufnr)
-	if client.resolved_capabilities.document_formatting then
-    vim.cmd([[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+	if client.config.capabilities == nil then
+		client.config.capabilities = {
+			workspace = {
+				didChangeWatchedFiles = {
+					dynamicRegistration = true,
+				},
+			},
+		}
+  else
+	end
+	if client.resolved_capabilities ~= nil and client.resolved_capabilities.document_formatting then
+		vim.cmd([[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 	end
 	lsp_highlight_document(client)
 end

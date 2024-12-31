@@ -84,14 +84,14 @@ keymap("n", "<leader>aR", "<cmd>CopilotChatRefactor<cr>", opts)
 keymap("n", "<leader>an", "<cmd>CopilotChatBetterNamings<cr>", opts)
 keymap("x", "<leader>ccq", ":CopilotChatVisual", opts)
 keymap("x", "<leader>ax", ":CopilotChatInline<cr>", opts)
-wk.register({
-	["<leader>cch"] = {
+wk.add({
+  {"<leader>cch",
 		function()
         local input = vim.fn.input("Quick Chat: ")
       if input ~= "" then
         require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
       end
 		end,
-		"CopilotChat - Quick Chat",
+		desc = "CopilotChat - Quick Chat",
 	},
 })

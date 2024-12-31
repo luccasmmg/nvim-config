@@ -8,7 +8,7 @@ local servers = {
 	"tflint",
 	"astro",
 	"gopls",
-	"tsserver",
+	"ts_ls",
 	"volar",
 	"tailwindcss",
 }
