@@ -11,5 +11,6 @@ require "user.autopairs"
 require "user.bufferline"
 require "user.copilot"
 require "CopilotChat".setup {}
+require "oil".setup {}
 require "user.toggleterm"
-require 'nvim-tree'.setup {}
+-- require 'nvim-tree'.setup {}
