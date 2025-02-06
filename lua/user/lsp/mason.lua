@@ -1,6 +1,6 @@
 local servers = {
-  "intelephense",
-  "rust_analyzer",
+	"intelephense",
+	"rust_analyzer",
 	"lua_ls",
 	"pyright",
 	"jsonls",
@@ -9,8 +9,9 @@ local servers = {
 	"astro",
 	"gopls",
 	"ts_ls",
+	"clangd",
 	"volar",
-	"tailwindcss",
+	"taplo",
 }
 
 local settings = {

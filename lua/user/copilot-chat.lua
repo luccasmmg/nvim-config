@@ -9,7 +9,7 @@ copilot_chat.setup({
 		proxy = nil, -- [protocol://]host[:port] Use this proxy
 		allow_insecure = false, -- Allow insecure server connections
 
-		model = "gpt-4", -- GPT model to use, 'gpt-3.5-turbo' or 'gpt-4'
+		model = "claude-3.5-sonnet", -- GPT model to use, 'gpt-3.5-turbo' or 'gpt-4'
 		temperature = 0.1, -- GPT temperature
 
 		name = "CopilotChat", -- Name to use in chat
@@ -28,7 +28,7 @@ copilot_chat.setup({
 			return select.visual(source) or select.line(source)
 		end,
 
-	-- default window options
+		-- default window options
 		window = {
 			layout = "vertical", -- 'vertical', 'horizontal', 'float'
 			-- Options below only apply to floating windows

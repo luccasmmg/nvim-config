@@ -30,6 +30,9 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<C-m>", "<Nop>", opts)
 
 keymap("n", "<leader>e", "<cmd>Oil<CR>", opts)
+vim.keymap.set("n", "<leader>e", function()
+	vim.cmd((vim.bo.filetype == "oil") and "bd" or "Oil")
+end)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -76,6 +79,10 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<c-f>", "<cmd>Telescope live_grep<cr>", opts)
 
+-- Quickfix
+keymap("n", "<M-j>", "<cmd>cnext<CR>", opts)
+keymap("n", "<M-k>", "<cmd>cprev<CR>", opts)
+
 -- Code related commands
 keymap("n", "<leader>ae", "<cmd>CopilotChatExplain<cr>", opts)
 keymap("n", "<leader>at", "<cmd>CopilotChatTests<cr>", opts)
@@ -85,13 +92,27 @@ keymap("n", "<leader>an", "<cmd>CopilotChatBetterNamings<cr>", opts)
 keymap("x", "<leader>ccq", ":CopilotChatVisual", opts)
 keymap("x", "<leader>ax", ":CopilotChatInline<cr>", opts)
 wk.add({
-  {"<leader>cch",
+	{
+		"<leader>cch",
 		function()
-        local input = vim.fn.input("Quick Chat: ")
-      if input ~= "" then
-        require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-      end
+			local input = vim.fn.input("Quick Chat: ")
+			if input ~= "" then
+				require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+			end
 		end,
 		desc = "CopilotChat - Quick Chat",
 	},
+})
+
+-- Create an autocommand for quickfix windows
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "qf",
+	callback = function()
+		-- Map the Enter key to <CR> in normal mode for the quickfix buffer.
+		-- This effectively restores the default behavior.
+		vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<CR>", {
+			noremap = true,
+			silent = true,
+		})
+	end,
 })

@@ -1,148 +1,168 @@
-local fn = vim.fn
-
--- Automatically install packer
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-	PACKER_BOOTSTRAP = fn.system({
-		"git",
-		"clone",
-		"--depth",
-		"1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
-	})
-	print("Installing packer close and reopen Neovim...")
-	vim.cmd([[packadd packer.nvim]])
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-	return
-end
+-- Setup lazy.nvim
+require("lazy").setup({
+	spec = {
+		{ "nvim-lua/popup.nvim" }, -- An implementation of the Popup API from vim in Neovim
+		{ "nvim-lua/plenary.nvim" }, -- Useful lua functions used ny lots of plugins
 
--- Have packer use a popup window
-packer.init({
-	display = {
-		open_fn = function()
-			return require("packer.util").float({ border = "rounded" })
-		end,
-	},
-})
+		-- Colorschemes
+		-- { "lunarvim/colorschemes" }, -- A bunch of colorschemes you can try out
+		{ "challenger-deep-theme/vim" },
+		{ "Mofiqul/dracula.nvim" },
+		{ "catppuccin/nvim" },
+		{ "lunarvim/darkplus.nvim" },
 
--- Install your plugins here
-return packer.startup(function(use)
-	-- My plugins here
-	use("wbthomason/packer.nvim") -- Have packer manage itself
-	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
-	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
+		-- cmp plugins
+		{ "hrsh7th/nvim-cmp" }, -- The completion plugin
+		{ "hrsh7th/cmp-buffer" }, -- buffer completion
+		{ "hrsh7th/cmp-path" }, -- path completions
+		{ "hrsh7th/cmp-cmdline" }, -- cmdline completion
+		{ "hrsh7th/cmp-nvim-lsp" }, -- lsp completion
+		{ "hrsh7th/cmp-nvim-lua" }, -- completion source for configuration
+		{ "saadparwaiz1/cmp_luasnip" }, -- snippet completion
 
-	-- Colorschemes
-	-- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
-	use("challenger-deep-theme/vim")
-	use("Mofiqul/dracula.nvim")
-	use("catppuccin/nvim")
-	use("lunarvim/darkplus.nvim")
+		-- snippets
+		{ "L3MON4D3/LuaSnip" }, -- snippet engine
+		{ "rafamadriz/friendly-snippets" }, -- a bunch of snippets to use
 
-	-- cmp plugins
-	use("hrsh7th/nvim-cmp") -- The completion plugin
-	use("hrsh7th/cmp-buffer") -- buffer completion
-	use("hrsh7th/cmp-path") -- path completions
-	use("hrsh7th/cmp-cmdline") -- cmdline cimpletion
-	use("hrsh7th/cmp-nvim-lsp") -- lsp cimpletion
-	use("hrsh7th/cmp-nvim-lua") -- completion source for configuration
-	use("saadparwaiz1/cmp_luasnip") -- snippet completion
+		-- LSP
+		{ "neovim/nvim-lspconfig" }, -- enable LSP
+		{ "williamboman/mason.nvim" }, -- simple to use language server installer
+		{ "williamboman/mason-lspconfig.nvim" }, -- simple to use language server installer
+		{ "jose-elias-alvarez/null-ls.nvim" }, -- LSP diagnostics and code actions
 
-	-- snippets
-	use("L3MON4D3/LuaSnip") -- snippet engine
-	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
+		-- Telescope
+		{ "nvim-telescope/telescope.nvim" },
+		{ "nvim-telescope/telescope-media-files.nvim" },
 
-	-- LSP
-	use("neovim/nvim-lspconfig") -- enable LSP
-	use("williamboman/mason.nvim") -- simple to use language server installer
-	use("williamboman/mason-lspconfig.nvim") -- simple to use language server installer
-	use("jose-elias-alvarez/null-ls.nvim") -- LSP diagnostics and code actions
+		-- Treesitter
+		{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+		{ "p00f/nvim-ts-rainbow" },
 
-	-- Telescope
-	use("nvim-telescope/telescope.nvim")
-	use("nvim-telescope/telescope-media-files.nvim")
+		-- Lualine
+		{ "kyazdani42/nvim-web-devicons" },
+		{
+			"nvim-lualine/lualine.nvim",
+			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		},
 
-	-- Treesitter
-	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-	use({ "p00f/nvim-ts-rainbow" })
+		-- Oil
+		{ "stevearc/oil.nvim" },
 
-	-- Lualine
-	use("kyazdani42/nvim-web-devicons")
-	use({
-		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
-	})
+		-- Supermaven
+		{
+			"supermaven-inc/supermaven-nvim",
+			config = function()
+				require("supermaven-nvim").setup({
+					keymaps = {
+						accept_suggestion = "<C-l>",
+					},
+				})
+			end,
+		},
+		{
+			"yetone/avante.nvim",
+			event = "VeryLazy",
+			lazy = false,
+			version = false, -- set this if you want to always pull the latest change
+			opts = {
+				-- add any opts here
+			},
+			-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+			build = "make",
+			-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+			dependencies = {
+				"stevearc/dressing.nvim",
+				"nvim-lua/plenary.nvim",
+				"MunifTanjim/nui.nvim",
+				--- The below dependencies are optional,
+				"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+				"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+				{
+					-- support for image pasting
+					"HakonHarnes/img-clip.nvim",
+					event = "VeryLazy",
+					opts = {
+						-- recommended settings
+						default = {
+							embed_image_as_base64 = false,
+							prompt_for_file_name = false,
+							drag_and_drop = {
+								insert_mode = true,
+							},
+							-- required for Windows users
+							use_absolute_path = true,
+						},
+					},
+				},
+				{
+					-- Make sure to set this up properly if you have lazy=true
+					"MeanderingProgrammer/render-markdown.nvim",
+					opts = {
+						file_types = { "markdown", "Avante" },
+					},
+					ft = { "markdown", "Avante" },
+				},
+			},
+		},
 
-	-- Oil
-	use("stevearc/oil.nvim")
+		-- Autopairs
+		{ "windwp/nvim-autopairs" },
 
-	--Copilot
-	use("zbirenbaum/copilot.lua")
-	use({
-		"CopilotC-Nvim/CopilotChat.nvim",
-		requires = {{
-			"zbirenbaum/copilot.lua",
-		}, {
-			"nvim-lua/plenary.nvim",
-		}},
-    branch = "main",
-		config = function()
-			require("CopilotChat").setup({
-				show_help = "yes", -- Show help text for CopilotChatInPlace, default: yes
-				debug = true, -- Enable or disable debug mode, the log file will be in ~/.local/state/nvim/CopilotChat.nvim.log
-				disable_extra_info = "no", -- Disable extra information (e.g: system prompt) in the response.
-				language = "English", -- Copilot answer language settings when using default prompts. Default language is English.
-				build = function()
-					vim.notify(
-						"Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim."
-					)
-				end,
-			})
-		end,
-	})
+		-- Bufferline
+		{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
 
-	-- Autopairs
-	use("windwp/nvim-autopairs")
+		-- Toggle term
+		{ "akinsho/toggleterm.nvim" },
 
-	-- Bufferline
-	use("akinsho/bufferline.nvim")
+		-- Go-import
+		{ "mattn/vim-goimports" },
 
-	-- Toggle term
-	use("akinsho/toggleterm.nvim")
-
-	-- Go-import
-	use("mattn/vim-goimports")
-
-	-- Which key
-	use({
-		"folke/which-key.nvim",
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-			require("which-key").setup({
+		-- Which key
+		{
+			"folke/which-key.nvim",
+			event = "VeryLazy",
+			opts = {
 				-- your configuration comes here
 				-- or leave it empty to use the default settings
 				-- refer to the configuration section below
-			})
-		end,
-	})
-
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
-	if PACKER_BOOTSTRAP then
-		require("packer").sync()
-	end
-end)
+			},
+			keys = {
+				{
+					"<leader>?",
+					function()
+						require("which-key").show({ global = false })
+					end,
+					desc = "Buffer Local Keymaps (which-key)",
+				},
+			},
+		},
+	},
+	-- Configure any other settings here. See the documentation for more details.
+	-- colorscheme that will be used when installing plugins.
+	install = { colorscheme = { "habamax" } },
+	-- automatically check for plugin updates
+	checker = { enabled = true },
+})
