@@ -21,10 +21,10 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+-- keymap("n", "<C-h>", "<C-w>h", opts)
+-- keymap("n", "<C-j>", "<C-w>j", opts)
+-- keymap("n", "<C-k>", "<C-w>k", opts)
+-- keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Disable ctrl-M
 keymap("n", "<C-m>", "<Nop>", opts)
@@ -45,8 +45,8 @@ keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- Move text up and down
-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+-- keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+-- keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- Insert --
 -- Press jk fast to enter
@@ -76,33 +76,12 @@ keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
+-- Quickfix --
+keymap("n", "<A-n>", ":cnext<CR>", opts)
+keymap("n", "<A-p>", ":cprevious<CR>", opts)
+
 keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<c-f>", "<cmd>Telescope live_grep<cr>", opts)
-
--- Quickfix
-keymap("n", "<M-j>", "<cmd>cnext<CR>", opts)
-keymap("n", "<M-k>", "<cmd>cprev<CR>", opts)
-
--- Code related commands
-keymap("n", "<leader>ae", "<cmd>CopilotChatExplain<cr>", opts)
-keymap("n", "<leader>at", "<cmd>CopilotChatTests<cr>", opts)
-keymap("n", "<leader>ar", "<cmd>CopilotChatReview<cr>", opts)
-keymap("n", "<leader>aR", "<cmd>CopilotChatRefactor<cr>", opts)
-keymap("n", "<leader>an", "<cmd>CopilotChatBetterNamings<cr>", opts)
-keymap("x", "<leader>ccq", ":CopilotChatVisual", opts)
-keymap("x", "<leader>ax", ":CopilotChatInline<cr>", opts)
-wk.add({
-	{
-		"<leader>cch",
-		function()
-			local input = vim.fn.input("Quick Chat: ")
-			if input ~= "" then
-				require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-			end
-		end,
-		desc = "CopilotChat - Quick Chat",
-	},
-})
 
 -- Create an autocommand for quickfix windows
 vim.api.nvim_create_autocmd("FileType", {
@@ -116,3 +95,12 @@ vim.api.nvim_create_autocmd("FileType", {
 		})
 	end,
 })
+
+-- Buffers --
+
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>bc",
+	":%bd|e#|bd#<CR>",
+	{ noremap = true, silent = true, desc = "Close all buffers except current" }
+)

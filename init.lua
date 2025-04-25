@@ -11,4 +11,7 @@ require("user.autopairs")
 require("user.bufferline")
 require("oil").setup({})
 require("user.toggleterm")
+vim.cmd([[
+hi BufferLineFill guibg='#1e1c31'
+]])
 -- require 'nvim-tree'.setup {}
