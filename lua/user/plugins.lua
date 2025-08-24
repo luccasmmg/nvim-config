@@ -39,7 +39,7 @@ require("lazy").setup({
 		{ "hrsh7th/cmp-buffer" }, -- buffer completion
 		{ "hrsh7th/cmp-path" }, -- path completions
 		{ "hrsh7th/cmp-cmdline" }, -- cmdline completion
-		{ "hrsh7th/cmp-nvim-lsp" }, -- lsp completion
+		{ "hrsh7th/cmp-nvim-lsp", commit = "a8912b88ce488f411177fc8aed358b04dc246d7b" }, -- lsp completion
 		{ "hrsh7th/cmp-nvim-lua" }, -- completion source for configuration
 		{ "saadparwaiz1/cmp_luasnip" }, -- snippet completion
 
@@ -67,6 +67,9 @@ require("lazy").setup({
 			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		},
+
+		-- Diffview
+		{ "sindrets/diffview.nvim" },
 
 		-- Oil
 		{ "stevearc/oil.nvim" },

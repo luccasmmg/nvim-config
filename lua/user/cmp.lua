@@ -111,7 +111,12 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = "nvim_lsp" },
+    { 
+      name = "nvim_lsp",
+      entry_filter = function(entry, ctx)
+        return vim.api.nvim_buf_is_valid(ctx.bufnr or 0)
+      end
+    },
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "buffer" },

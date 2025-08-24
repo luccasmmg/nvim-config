@@ -83,7 +83,7 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 	lsp_keymaps(bufnr)
-	if client.config.capabilities == nil then
+	if not client.config.capabilities then
 		client.config.capabilities = {
 			workspace = {
 				didChangeWatchedFiles = {
@@ -91,9 +91,9 @@ M.on_attach = function(client, bufnr)
 				},
 			},
 		}
-	else
 	end
 	if client.supports_method("textDocument/formatting") then
+		local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = augroup,
@@ -101,7 +101,7 @@ M.on_attach = function(client, bufnr)
 			callback = function()
 				-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
 				-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
-				vim.lsp.buf.format()
+				vim.lsp.buf.format({ bufnr = bufnr })
 			end,
 		})
 	end
@@ -112,7 +112,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then
-	return
+	return {}
 end
 
 M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
