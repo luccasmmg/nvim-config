@@ -5,7 +5,7 @@ end
 
 toggleterm.setup({
 	size = 20,
-	open_mapping = [[<c-\>]],
+	open_mapping = false,
 	hide_numbers = true,
 	shade_filetypes = {},
 	shade_terminals = true,
@@ -68,3 +68,6 @@ local python = Terminal:new({ cmd = "python", hidden = true })
 function _PYTHON_TOGGLE()
 	python:toggle()
 end
+
+-- Custom mapping to always open terminal 1
+vim.keymap.set({"n", "t"}, "<C-\\>", "<cmd>1ToggleTerm<cr>", {desc = "Toggle terminal 1"})
