@@ -24,7 +24,7 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    { "nvim-lua/popup.nvim" }, -- An implementation of the Popup API from vim in Neovim
+    { "nvim-lua/popup.nvim" },   -- An implementation of the Popup API from vim in Neovim
     { "nvim-lua/plenary.nvim" }, -- Useful lua functions used ny lots of plugins
 
     -- Colorschemes
@@ -35,37 +35,37 @@ require("lazy").setup({
     { "lunarvim/darkplus.nvim" },
 
     -- cmp plugins
-    { "hrsh7th/nvim-cmp" },                                                        -- The completion plugin
-    { "hrsh7th/cmp-buffer" },                                                      -- buffer completion
-    { "hrsh7th/cmp-path" },                                                        -- path completions
-    { "hrsh7th/cmp-cmdline" },                                                     -- cmdline completion
+    { "hrsh7th/nvim-cmp" },                                                                              -- The completion plugin
+    { "hrsh7th/cmp-buffer" },                                                                            -- buffer completion
+    { "hrsh7th/cmp-path" },                                                                              -- path completions
+    { "hrsh7th/cmp-cmdline" },                                                                           -- cmdline completion
     { "hrsh7th/cmp-nvim-lsp",                     commit = "a8912b88ce488f411177fc8aed358b04dc246d7b" }, -- lsp completion
-    { "hrsh7th/cmp-nvim-lua" },                                                    -- completion source for configuration
-    { "saadparwaiz1/cmp_luasnip" },                                                -- snippet completion
+    { "hrsh7th/cmp-nvim-lua" },                                                                          -- completion source for configuration
+    { "saadparwaiz1/cmp_luasnip" },                                                                      -- snippet completion
 
     -- snippets
-    { "L3MON4D3/LuaSnip" },           -- snippet engine
+    { "L3MON4D3/LuaSnip" },             -- snippet engine
     { "rafamadriz/friendly-snippets" }, -- a bunch of snippets to use
 
     -- LSP
-    { "neovim/nvim-lspconfig" },                            -- enable LSP
-    { "williamboman/mason.nvim" },                          -- simple to use language server installer
-    { "williamboman/mason-lspconfig.nvim",        tag = "v1.32.0" }, -- simple to use language server installer
-    { "nvimtools/none-ls.nvim" },                           -- LSP diagnostics and code actions
+    { "neovim/nvim-lspconfig" },             -- enable LSP
+    { "williamboman/mason.nvim" },           -- simple to use language server installer
+    { "williamboman/mason-lspconfig.nvim" }, -- simple to use language server installer
+    { "nvimtools/none-ls.nvim" },            -- LSP diagnostics and code actions
 
     -- Telescope
     { "nvim-telescope/telescope.nvim" },
     { "nvim-telescope/telescope-media-files.nvim" },
 
     -- Treesitter
-    { "nvim-treesitter/nvim-treesitter",          run = ":TSUpdate" },
-    { "p00f/nvim-ts-rainbow" },
+    { "nvim-treesitter/nvim-treesitter",          build = ":TSUpdate" },
+    { "HiPhish/nvim-ts-rainbow2" },
 
     -- Lualine
-    { "kyazdani42/nvim-web-devicons" },
+    { "nvim-tree/nvim-web-devicons" },
     {
       "nvim-lualine/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 
     -- Diffview
